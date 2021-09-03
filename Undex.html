@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html >
+  <head >
+    <title >Stopwatch</title>
+    <style >
+      #timer{
+        position: fixed;
+        top: 30%;
+        left: 30%;
+        font-size:40px;
+      }
+      #start{
+        position: fixed;
+        top: 65%;
+        left: 25%;
+        font-size:30px;
+        width: 200px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: lime;
+        border:solid black 2px;
+      }
+    </style>
+  </head>
+  <body >
+    <button onclick="start()" id="start">START</button>
+    <h4 id="timer">00:00:00</h4>
+  </body>
+</html>
+<script >
+  var main = 0;
+  var click = 0;
+//variable for second
+  var sec = 00;
+  var sec2 = "0"+sec;
+  //variable for minute value
+  var min = 00;
+  var min2 = "0"+min;
+  //variable for milliseconds value
+  var milsec = 00;
+  var total = min2+":"+sec2+":"+milsec;
+  function start(){
+    //function to repeat a function after some time
+    setInterval(
+      function start(){
+        milsec+=1;
+      //to change 100 milliseconds to 1 second
+      if(milsec==99){
+        sec+=1;
+        if(sec < 10){
+          sec2 = "0"+sec;
+        }
+        sec = sec;
+        milsec-=99;
+      }
+      //to change 60 sec to 1 minute
+      if(sec==59){
+        min+=1;
+        if(min < 10){
+          min2 = "0"+min;
+        }
+        min=min;
+        sec-=59;
+      }
+      //recalling the variable to ensure no value change
+      if(sec < 10){
+        total = min+":"+sec2+":"+milsec;
+      }
+      else{
+        total = min+":"+sec+":"+milsec;
+      }
+      if(min < 10){
+        if(sec < 10){
+        total = min2+":"+sec2+":"+milsec;}
+        else{
+          total = min2+":"+sec+":"+milsec;
+        }
+      }
+      else{
+          if(sec < 10){
+        total = min+":"+sec2+":"+milsec;
+          }
+        else{
+          total = min+":"+sec+":"+milsec;
+        }
+      }
+      if(main%2 != 0){
+      document.getElementById("timer").innerHTML=total;
+      }
+      
+      }
+      ,10);
+      click+=1;
+    if(click%2 != 0){
+      main += 1;
+    document.getElementById("start").style.backgroundColor="red"
+    document.getElementById("start").innerHTML="STOP"
+    }
+    else{
+      main+=1;
+      document.getElementById("start").style.backgroundColor="lime"
+      document.getElementById("start").innerHTML="START"
+      sec = 0;
+      min = 0;
+      milsec = 0;
+    }
+    if(click==2){
+      document.getElementById("start").style.backgroundColor="#7ca8b3"
+      document.getElementById("start").innerHTML="RESTART?"
+    }
+    if(click >= 3){
+    location.reload(true);
+  }
+  }
+</script>
